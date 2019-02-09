@@ -9,7 +9,7 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.requestType;
 
-public class LaunchRequestHandler implements RequestHandler {
+public class LaunchRequestHandler  extends AbstractIntentHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {

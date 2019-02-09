@@ -8,12 +8,7 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.intentName;
 
-public class WelcomeHybrisIntentHandler implements RequestHandler {
-
-    @Override
-    public boolean canHandle(HandlerInput input) {
-        return input.matches(intentName("WelcomeHybrisIntent"));
-    }
+public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
 
     @Override
     public Optional<Response> handle(HandlerInput input) {

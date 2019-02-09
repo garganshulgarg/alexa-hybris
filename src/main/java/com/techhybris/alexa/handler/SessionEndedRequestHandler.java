@@ -8,7 +8,7 @@ import java.util.Optional;
 
 import static com.amazon.ask.request.Predicates.requestType;
 
-public class SessionEndedRequestHandler implements RequestHandler {
+public class SessionEndedRequestHandler extends AbstractIntentHandler {
 
     @Override
     public boolean canHandle(HandlerInput input) {
