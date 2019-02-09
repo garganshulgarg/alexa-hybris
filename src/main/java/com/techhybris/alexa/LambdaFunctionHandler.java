@@ -1,22 +1,40 @@
 package com.techhybris.alexa;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.amazon.ask.Skill;
+import com.amazon.ask.SkillStreamHandler;
+import com.amazon.ask.Skills;
+import com.amazon.ask.dispatcher.request.handler.RequestHandler;
+import com.techhybris.alexa.handler.CancelandStopIntentHandler;
+import com.techhybris.alexa.handler.FallbackIntentHandler;
+import com.techhybris.alexa.handler.WelcomeHybrisIntentHandler;
+import com.techhybris.alexa.handler.LaunchRequestHandler;
+import com.techhybris.alexa.handler.SessionEndedRequestHandler;
 
-public class LambdaFunctionHandler implements RequestStreamHandler {
+public class LambdaFunctionHandler extends SkillStreamHandler {
 
-    @Override
-    public void handleRequest(InputStream input, OutputStream output, Context context) throws IOException {
+    private static Skill getSkill() {
+    	RequestHandler cancelHandler = new CancelandStopIntentHandler();
+    	RequestHandler fallbackHandler = new FallbackIntentHandler();
+    	RequestHandler helloWorldHandler = new WelcomeHybrisIntentHandler();
+    	RequestHandler helpHandler = new WelcomeHybrisIntentHandler();
+    	RequestHandler launchRequestHandler = new LaunchRequestHandler();
+    	RequestHandler sessionEndedHandler = new SessionEndedRequestHandler();
+    	
+        return Skills.standard()
+                .addRequestHandlers(
+                		cancelHandler,
+                		helloWorldHandler,
+                		helpHandler,
+                		launchRequestHandler,
+                		sessionEndedHandler,
+                        fallbackHandler)
+                // Add your skill id below
+                //.withSkillId("")
+                .build();
+    }
 
-        // TODO: Implement your stream handler. See https://docs.aws.amazon.com/lambda/latest/dg/java-handler-io-type-stream.html for more information.
-        // This demo implementation capitalizes the characters from the input stream.
-        int letter = 0;
-        while((letter = input.read()) >= 0) {
-            output.write(Character.toUpperCase(letter));
-        }
+    public LambdaFunctionHandler() {
+        super(getSkill());
     }
 
 }
