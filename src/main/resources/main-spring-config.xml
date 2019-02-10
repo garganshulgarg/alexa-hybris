@@ -70,4 +70,10 @@
 
 	<bean id="hybrisConnectorService"
 		class="com.techhybris.alexa.integration.impl.DefaultHybrisConnectorService"></bean>
+		
+	
+	
+	<!-- Importing separate Spring Integration configurations -->
+	<import resource="classpath:/resources/integration/sap-hybris-common-spring-integration.xml"/>	
+	<import resource="classpath:/resources/integration/sap-hybris-rest-spring-integration.xml"/>	
 </beans>

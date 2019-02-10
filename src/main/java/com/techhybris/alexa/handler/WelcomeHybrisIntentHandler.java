@@ -26,7 +26,7 @@ public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
 
 	@Override
 	public Optional<Response> handle(HandlerInput input) {
-		String speechText = "Welcome Hybris " + hybrisConnectorService.test();
+		String speechText = "Welcome Hybris " + hybrisConnectorService.testRestServices();
 		// Logging sample example.
 		// Properties sample example. This is only for reference.
 		LOG.error(speechText +" Property: "+ alexaIntentName);
