@@ -1,4 +1,4 @@
-package com.techhybris.alexa.ingration;
+package com.techhybris.alexa.integration;
 
 public interface HybrisConnectorService {
 	

@@ -2,7 +2,7 @@ package com.techhybris.alexa.handler;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.model.Response;
-import com.techhybris.alexa.ingration.HybrisConnectorService;
+import com.techhybris.alexa.integration.HybrisConnectorService;
 
 import java.util.Optional;
 import org.slf4j.Logger;

@@ -1,6 +1,6 @@
-package com.techhybris.alexa.ingration.impl;
+package com.techhybris.alexa.integration.impl;
 
-import com.techhybris.alexa.ingration.HybrisConnectorService;
+import com.techhybris.alexa.integration.HybrisConnectorService;
 
 public class DefaultHybrisConnectorService implements HybrisConnectorService {
 

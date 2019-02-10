@@ -69,5 +69,5 @@
 
 
 	<bean id="hybrisConnectorService"
-		class="com.techhybris.alexa.ingration.impl.DefaultHybrisConnectorService"></bean>
+		class="com.techhybris.alexa.integration.impl.DefaultHybrisConnectorService"></bean>
 </beans>
