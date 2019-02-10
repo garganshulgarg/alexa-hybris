@@ -12,7 +12,7 @@ public class LambdaFunctionHandler extends SkillStreamHandler {
 
     private static Skill getSkill() {
     	ApplicationContext context = new ClassPathXmlApplicationContext("resources/main-spring-config.xml");
-    	HandlerDetails handlerDetails = (HandlerDetails) context.getBean("handelerDetails");
+    	HandlerDetails handlerDetails = (HandlerDetails) context.getBean("handlerDetails");
     	
         return Skills.standard()
                 .addRequestHandlers(handlerDetails.getHandlerList())
