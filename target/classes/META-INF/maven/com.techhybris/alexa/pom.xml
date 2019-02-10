@@ -68,5 +68,12 @@
 			<artifactId>spring-beans</artifactId>
 			<version>5.1.4.RELEASE</version>
 		</dependency>
+	
+		<!-- Spring Integration dependency -->
+		<dependency>
+			<groupId>org.springframework.integration</groupId>
+			<artifactId>spring-integration-core</artifactId>
+			<version>4.3.5.RELEASE</version>
+		</dependency>
 	</dependencies>
 </project>

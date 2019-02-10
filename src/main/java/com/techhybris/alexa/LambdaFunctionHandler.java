@@ -11,7 +11,7 @@ import com.techhybris.alexa.data.HandlerDetails;
 public class LambdaFunctionHandler extends SkillStreamHandler {
 
     private static Skill getSkill() {
-    	ApplicationContext context = new ClassPathXmlApplicationContext("Beans.xml");
+    	ApplicationContext context = new ClassPathXmlApplicationContext("resources/beans.xml");
     	HandlerDetails handlerDetails = (HandlerDetails) context.getBean("handelerDetails");
     	
         return Skills.standard()
