@@ -23,7 +23,6 @@ public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
 		String speechText = "Welcome Hybris " + hybrisConnectorService.test();
 		// Logging sample example.
 		LOG.error(speechText);
-		System.out.println("SYSO: " + speechText);
 		return input.getResponseBuilder().withSpeech(speechText).withSimpleCard("WelcomeHybris", speechText).build();
 	}
 
