@@ -1,18 +1,16 @@
 package com.techhybris.alexa.handler;
 
-import com.amazon.ask.dispatcher.request.handler.HandlerInput;
-import com.amazon.ask.model.Response;
-import com.techhybris.alexa.integration.HybrisConnectorService;
-
 import java.util.Optional;
-import org.slf4j.Logger;
 
 import javax.annotation.Resource;
 
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
+
+import com.amazon.ask.dispatcher.request.handler.HandlerInput;
+import com.amazon.ask.model.Response;
+import com.techhybris.alexa.integration.HybrisConnectorService;
 
 public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
 
