@@ -20,5 +20,9 @@ public class SessionEndedRequestHandler extends AbstractIntentHandler {
         // any cleanup logic goes here
         return input.getResponseBuilder().build();
     }
+	@Override
+	protected void handleInternal(HandlerInput input) {
+		
+	}
 
 }

@@ -25,5 +25,10 @@ public class LaunchRequestHandler  extends AbstractIntentHandler {
                 .withReprompt(speechText)
                 .build();
     }
+	@Override
+	protected void handleInternal(HandlerInput input) {
+		
+	}
+
 
 }

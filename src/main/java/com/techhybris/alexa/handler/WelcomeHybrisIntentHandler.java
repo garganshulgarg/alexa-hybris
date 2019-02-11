@@ -33,4 +33,15 @@ public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
 		return input.getResponseBuilder().withSpeech(speechText).withSimpleCard("WelcomeHybris", speechText).build();
 	}
 
+	@Override
+	protected void handleInternal(HandlerInput input) {
+
+		String testText =  hybrisConnectorService.testRestServices();
+		// Logging sample example.
+		// Properties sample example. This is only for reference.
+		LOG.error(testText +" Property: "+ alexaIntentName);
+		addModel(input, "name", "Hybris");
+		addModel(input, "testService", testText);
+	}
+
 }

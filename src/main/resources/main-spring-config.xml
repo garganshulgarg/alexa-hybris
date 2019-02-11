@@ -38,6 +38,8 @@
 	<bean id="welcomeHybrisHandler"
 		class="com.techhybris.alexa.handler.WelcomeHybrisIntentHandler">
 		<property name="intentName" value="WelcomeHybrisIntent" />
+		<property name="speachName" value="welcomeHybris" />
+   		<property name="cardName" value="welcomeHybris" />
 	</bean>
 	<bean id="helpHandler"
 		class="com.techhybris.alexa.handler.HelpIntentHandler">

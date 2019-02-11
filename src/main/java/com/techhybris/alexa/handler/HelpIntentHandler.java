@@ -20,4 +20,9 @@ public class HelpIntentHandler  extends AbstractIntentHandler {
                 .withReprompt(speechText)
                 .build();
     }
+	@Override
+	protected void handleInternal(HandlerInput input) {
+		
+	}
+
 }

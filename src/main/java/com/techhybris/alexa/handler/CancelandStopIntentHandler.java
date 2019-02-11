@@ -18,4 +18,9 @@ public class CancelandStopIntentHandler extends AbstractIntentHandler {
                 .withSimpleCard("HelloWorld", speechText)
                 .build();
     }
+	@Override
+	protected void handleInternal(HandlerInput input) {
+		
+	}
+
 }
