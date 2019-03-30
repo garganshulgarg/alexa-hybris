@@ -1,7 +1,5 @@
 package com.techhybris.alexa.handler;
 
-import java.util.Optional;
-
 import javax.annotation.Resource;
 
 import org.slf4j.Logger;
@@ -9,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
-import com.amazon.ask.model.Response;
 import com.techhybris.alexa.integration.HybrisConnectorService;
 
 public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
