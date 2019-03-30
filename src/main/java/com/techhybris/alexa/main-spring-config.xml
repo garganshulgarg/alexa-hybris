@@ -16,7 +16,7 @@
 		class="org.springframework.context.support.PropertySourcesPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>classpath:com/techhybris/alexa/project.properties</value>
+				<value>classpath:resources/project.properties</value>
 			</list>
 		</property>
 		<property name="ignoreUnresolvablePlaceholders" value="true" />
@@ -71,11 +71,12 @@
 
 
 	<bean id="hybrisConnectorService"
-		class="com.techhybris.alexa.integration.impl.DefaultHybrisConnectorService"></bean>
+		class="com.techhybris.alexa.integration.impl.DefaultHybrisConnectorService"/>
 		
 	
-	
+	<!-- Importing separate Spring Rest Template configurations -->
 	<!-- Importing separate Spring Integration configurations -->
-	<import resource="classpath:com/techhybris/alexa/sap-hybris-common-spring-integration.xml"/>	
-	<import resource="classpath:com/techhybris/alexa/sap-hybris-rest-spring-integration.xml"/>	
+	<import resource="classpath:resources/sap-hybris-common-spring-integration.xml"/>	
+	<import resource="classpath:resources/sap-hybris-rest-spring-integration.xml"/>	
+	
 </beans>

@@ -49,6 +49,18 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 
 	protected abstract void handleInternal(HandlerInput input);
 	
+	protected String getAccessToken(HandlerInput input, boolean isAccessTokenRequired) {
+		if(isAccessTokenRequired) {
+			return input
+		            .getRequestEnvelope()
+		            .getContext()
+		            .getSystem()
+		            .getUser()
+		            .getAccessToken();
+		}
+		return null;
+	}
+	
 	protected void addModel(HandlerInput input, String key, String value) {
 		input.getAttributesManager().getRequestAttributes().put(key, value);
 	}
