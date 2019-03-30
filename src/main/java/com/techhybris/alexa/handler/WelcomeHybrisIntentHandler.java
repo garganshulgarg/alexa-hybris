@@ -26,13 +26,13 @@ public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
 
 	@Override
 	protected void handleInternal(HandlerInput input) {
-
-		String testText =  hybrisConnectorService.testRestServices();
-		// Logging sample example.
-		// Properties sample example. This is only for reference.
+		String accessToken = getAccessToken(input, true);
+		LOG.error("Access Token: {}", accessToken);
+		String testText =  hybrisConnectorService.getCurrentCustomerCart(accessToken);
+		
 		LOG.error(testText +" Property: "+ alexaIntentName);
 		addModel(input, "name", "Hybris");
-		addModel(input, "testService", testText);
+		addModel(input, "testService", "TEST");
 	}
 
 }
