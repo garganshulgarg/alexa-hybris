@@ -9,6 +9,7 @@ import org.springframework.http.HttpMethod;
 
 public class HybrisRequest {
 
+	private HttpMethod method;
 	private String url;
 	private Map<String, String> headers;
 	private Map<String, String> postData;
