@@ -1,0 +1,66 @@
+{
+	"carts": [
+		{
+			"appliedOrderPromotions": [],
+			"appliedProductPromotions": [],
+			"appliedVouchers": [],
+			"calculated": true,
+			"code": "00002051",
+			"deliveryItemsQuantity": 0,
+			"deliveryOrderGroups": [],
+			"entries": [],
+			"guid": "5f69d26f-ba10-4f7b-9a76-b47cbf75985f",
+			"net": true,
+			"orderDiscounts": {
+				"currencyIso": "USD",
+				"formattedValue": "$0.00",
+				"priceType": "BUY",
+				"value": 0.0
+			},
+			"pickupItemsQuantity": 0,
+			"pickupOrderGroups": [],
+			"productDiscounts": {
+				"currencyIso": "USD",
+				"formattedValue": "$0.00",
+				"priceType": "BUY",
+				"value": 0.0
+			},
+			"site": "electronics",
+			"store": "electronics",
+			"subTotal": {
+				"currencyIso": "USD",
+				"formattedValue": "$0.00",
+				"priceType": "BUY",
+				"value": 0.0
+			},
+			"totalDiscounts": {
+				"currencyIso": "USD",
+				"formattedValue": "$0.00",
+				"priceType": "BUY",
+				"value": 0.0
+			},
+			"totalItems": 0,
+			"totalPrice": {
+				"currencyIso": "USD",
+				"formattedValue": "$0.00",
+				"priceType": "BUY",
+				"value": 0.0
+			},
+			"totalPriceWithTax": {
+				"currencyIso": "USD",
+				"formattedValue": "$0.00",
+				"priceType": "BUY",
+				"value": 0.0
+			},
+			"totalTax": {
+				"currencyIso": "USD",
+				"formattedValue": "$0.00",
+				"priceType": "BUY",
+				"value": 0.0
+			},
+			"potentialOrderPromotions": [],
+			"potentialProductPromotions": [],
+			"totalUnitCount": 0
+		}
+	]
+}

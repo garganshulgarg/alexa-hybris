@@ -61,7 +61,7 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 		return null;
 	}
 	
-	protected void addModel(HandlerInput input, String key, String value) {
+	protected void addModel(HandlerInput input, String key, Object value) {
 		input.getAttributesManager().getRequestAttributes().put(key, value);
 	}
 	private void addContext(HandlerInput input, VelocityContext context) {
