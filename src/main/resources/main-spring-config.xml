@@ -76,7 +76,6 @@
 	
 	<!-- Importing separate Spring Rest Template configurations -->
 	<!-- Importing separate Spring Integration configurations -->
-	<import resource="classpath:resources/sap-hybris-common-spring-integration.xml"/>	
-	<import resource="classpath:resources/sap-hybris-rest-spring-integration.xml"/>	
+	<import resource="classpath:resources/integration/sap-hybris-common-integration.xml"/>	
 	
 </beans>
