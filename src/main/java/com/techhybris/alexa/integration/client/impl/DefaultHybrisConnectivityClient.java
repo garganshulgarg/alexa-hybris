@@ -1,6 +1,8 @@
 package com.techhybris.alexa.integration.client.impl;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -14,9 +16,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
+import com.techhybris.alexa.data.HybrisRequest;
 import com.techhybris.alexa.integration.client.HybrisConnectivityClient;
 
-public class DefaultHybrisConnectivityClient implements HybrisConnectivityClient {
+public class DefaultHybrisConnectivityClient<T> implements HybrisConnectivityClient {
 
 	private Logger LOG = LoggerFactory.getLogger(DefaultHybrisConnectivityClient.class);
 
@@ -24,43 +27,27 @@ public class DefaultHybrisConnectivityClient implements HybrisConnectivityClient
 	private RestTemplate hybrisRestTemplate;
 
 	@Override
-	public Object getRequest(final String url, final String accessToken) {
+	public Object invokeRequest(HybrisRequest request, Class clazz) {
 		try {
-			LOG.error(url);
-			HttpEntity<?> entity = new HttpEntity(getHybrisSpecificHttpHeader(accessToken));
-			ResponseEntity<Object> response = hybrisRestTemplate.exchange(url, HttpMethod.GET, entity, Object.class,
-					new Object[0]);
+			LOG.error(request.getUrl());
+			HttpEntity<HashMap<String, String>> entity = new HttpEntity(request.getPostData(), getHybrisSpecificHttpHeader(request));	
+			ResponseEntity<T> response = hybrisRestTemplate.exchange(request.getUrl(), request.getMethod(), entity, clazz);
 			if (null != response.getStatusCode() && response.getStatusCode().equals(HttpStatus.OK)) {
-				return response;
+				return response.getBody();
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage());
 		}
 		return null;
-	}
-	
-	@Override
-	public Object postRequest(final String url, final String accessToken) {
-		try {
 
-			HttpEntity<?> entity = new HttpEntity(getHybrisSpecificHttpHeader(accessToken));
-			ResponseEntity<Object> response = hybrisRestTemplate.exchange(url, HttpMethod.POST, entity, Object.class,
-					new Object[0]);
-			if (null != response.getStatusCode() && response.getStatusCode().equals(HttpStatus.OK)) {
-				return response;
-			}
-		} catch (Exception e) {
-			LOG.error(e.getMessage());
-		}
-		return null;
 	}
-
-	private HttpHeaders getHybrisSpecificHttpHeader(final String accessToken) {
+	private HttpHeaders getHybrisSpecificHttpHeader(HybrisRequest request) {
 		HttpHeaders requestHeaders = new HttpHeaders();
 		requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-		requestHeaders.set("charset", "UTF-8");
-		requestHeaders.set("Authorization", "Bearer " + accessToken);
-
+		Map<String, String> headers = request.getHeaders();
+		for(String key : headers.keySet()) {
+			requestHeaders.set(key, headers.get(key));
+		}
 		return requestHeaders;
 	}
 

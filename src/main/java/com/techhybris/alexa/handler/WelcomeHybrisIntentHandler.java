@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.techhybris.alexa.integration.HybrisConnectorService;
+import com.techhybris.alexa.response.data.UserData;
 
 public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
 
@@ -22,10 +23,9 @@ public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
 	@Override
 	protected void handleInternal(HandlerInput input) {
 		String accessToken = getAccessToken(input, true);
-		LOG.debug("Access Token: {}", accessToken);
-		String testText =  hybrisConnectorService.getCurrentCustomerCart(accessToken);
-		addModel(input, "name", "Hybris");
-		addModel(input, "testService", "TEST");
+		LOG.error("Access Token: {}", accessToken);
+		UserData user =  hybrisConnectorService.getUserProfile(accessToken);
+		addModel(input, "user", user);
 	}
 
 }

@@ -1,1 +1,1 @@
-Welcome $name $testService
+Welcome $user.title  $user.name to Hybris 

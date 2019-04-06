@@ -1,7 +1,8 @@
 package com.techhybris.alexa.integration.client;
 
-public interface HybrisConnectivityClient {
+import com.techhybris.alexa.data.HybrisRequest;
 
-	public Object getRequest(final String url, final String accessToken);
-	public Object postRequest(final String url, final String accessToken);
+public interface HybrisConnectivityClient <T> {
+
+	public T invokeRequest(HybrisRequest request, Class<T> clazz);
 }
