@@ -3,6 +3,7 @@ package com.techhybris.alexa.handler;
 import static com.amazon.ask.request.Predicates.intentName;
 
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -17,7 +18,9 @@ import org.springframework.beans.factory.annotation.Required;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
+import com.amazon.ask.model.IntentRequest;
 import com.amazon.ask.model.Response;
+import com.amazon.ask.model.Slot;
 
 public abstract class AbstractIntentHandler implements RequestHandler {
 
@@ -49,6 +52,21 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 
 	protected abstract void handleInternal(HandlerInput input);
 	
+	protected IntentRequest getIntentRequest(HandlerInput input) {
+		if(input.getRequestEnvelope().getRequest() instanceof IntentRequest) {
+			return (IntentRequest) input.getRequestEnvelope().getRequest();
+		}
+		return null;
+	}
+	protected Map<String, String> getSlots(HandlerInput input) {
+		IntentRequest request = getIntentRequest(input);
+		Map<String, String> slotValues = new HashMap<>();
+		Map<String, Slot> slots =  request.getIntent().getSlots();
+		for(String key : slots.keySet()) {
+			slotValues.put(key, slots.get(key).getValue());
+		}
+		return slotValues;
+	}
 	protected String getAccessToken(HandlerInput input, boolean isAccessTokenRequired) {
 		if(isAccessTokenRequired) {
 			return input

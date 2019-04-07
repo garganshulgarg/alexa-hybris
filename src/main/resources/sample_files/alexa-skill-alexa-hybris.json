@@ -17,8 +17,14 @@
                 },
                 {
                     "name": "WelcomeHybrisIntent",
-                    "slots": [],
+                    "slots": [
+                        {
+                            "name": "test",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
                     "samples": [
+                        "welcome hybris",
                         "say hello",
                         "say hello Hybris",
                         "hello",
@@ -35,6 +41,21 @@
                 {
                     "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
+                },
+                {
+                    "name": "ProductSearchIntent",
+                    "slots": [
+                        {
+                            "name": "query",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "Hybris please find best {query} for me",
+                        "find {query}",
+                        "Hybris find {query} ",
+                        "Hybris find best {query} for me"
+                    ]
                 }
             ],
             "types": []

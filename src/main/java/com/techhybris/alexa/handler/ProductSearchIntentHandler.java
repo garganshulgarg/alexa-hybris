@@ -11,22 +11,22 @@ import com.amazon.ask.model.IntentRequest;
 import com.techhybris.alexa.integration.HybrisConnectorService;
 import com.techhybris.alexa.response.data.UserData;
 
-public class WelcomeHybrisIntentHandler extends AbstractIntentHandler {
+public class ProductSearchIntentHandler extends AbstractIntentHandler {
 
-	private Logger LOG = LoggerFactory.getLogger(WelcomeHybrisIntentHandler.class);
+	private Logger LOG = LoggerFactory.getLogger(ProductSearchIntentHandler.class);
 	
 
 	@Resource(name = "hybrisConnectorService")
 	private HybrisConnectorService hybrisConnectorService;
 	
-	
-
 	@Override
 	protected void handleInternal(HandlerInput input) {
 		String accessToken = getAccessToken(input, true);
 		LOG.error("Access Token: {}", accessToken);
-		UserData user =  hybrisConnectorService.getUserProfile(accessToken);
-		addModel(input, "user", user);
+		
+		//UserData user =  hybrisConnectorService.getUserProfile(accessToken);
+		addModel(input, "sloat", getSlots(input));
+
 	}
 
 }

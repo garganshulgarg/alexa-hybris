@@ -41,6 +41,13 @@
 		<property name="speachName" value="welcomeHybris" />
    		<property name="cardName" value="welcomeHybris" />
 	</bean>
+	<bean id="productSearchHandler"
+		class="com.techhybris.alexa.handler.ProductSearchIntentHandler">
+		<property name="intentName" value="ProductSearchIntent" />
+		<property name="speachName" value="productSearchResult" />
+   		<property name="cardName" value="productSearchResult" />
+	</bean>
+	
 	<bean id="helpHandler"
 		class="com.techhybris.alexa.handler.HelpIntentHandler">
 		<property name="intentName" value="AMAZON.HelpIntent" />
@@ -65,6 +72,7 @@
 				<ref bean="helpHandler" />
 				<ref bean="launchRequestHandler" />
 				<ref bean="sessionEndedHandler" />
+				<ref bean="productSearchHandler" />
 			</list>
 		</property>
 	</bean>
