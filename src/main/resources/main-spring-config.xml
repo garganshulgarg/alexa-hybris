@@ -80,6 +80,9 @@
 
 	<bean id="hybrisConnectorService"
 		class="com.techhybris.alexa.integration.impl.DefaultHybrisConnectorService"/>
+
+	<bean id="hybrisProductSearchService"
+		class="com.techhybris.alexa.integration.impl.DefaultHybrisProductSearchService"/>
 		
 	
 	<!-- Importing separate Spring Rest Template configurations -->

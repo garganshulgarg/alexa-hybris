@@ -30,7 +30,7 @@ public class DefaultHybrisConnectivityClient<T> implements HybrisConnectivityCli
 	public Object invokeRequest(HybrisRequest request, Class clazz) {
 		try {
 			LOG.error(request.getUrl());
-			HttpEntity<HashMap<String, String>> entity = new HttpEntity(request.getPostData(), getHybrisSpecificHttpHeader(request));	
+			HttpEntity<?> entity = new HttpEntity(getHybrisSpecificHttpHeader(request));	
 			ResponseEntity<T> response = hybrisRestTemplate.exchange(request.getUrl(), request.getMethod(), entity, clazz);
 			if (null != response.getStatusCode() && response.getStatusCode().equals(HttpStatus.OK)) {
 				return response.getBody();

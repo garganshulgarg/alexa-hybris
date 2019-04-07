@@ -1,1 +1,4 @@
-You have requested for $sloat
+Following Facet are display:
+#foreach( $facet in $result.facets )
+    <li>$facet.name</li>
+#end
