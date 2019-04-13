@@ -14,6 +14,8 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Required;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
@@ -36,13 +38,14 @@ public abstract class AbstractIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input) {
     	handleInternal(input);
-    	String speechText=getSpeechText(input);
-    	String cardText = getCardText(input);//="WelcomeHybris";
-    	
-        return input.getResponseBuilder()
-                .withSpeech(speechText)
-                .withSimpleCard(cardText, speechText)
-                .build();
+    	PolicyFactory policyFactory = new HtmlPolicyBuilder().toFactory();
+    	String speechText=policyFactory.sanitize(getSpeechText(input));
+    	String cardText = policyFactory.sanitize(getCardText(input));//="WelcomeHybris";
+    	Optional<Response> build = input.getResponseBuilder()
+        .withSpeech(speechText)
+        .withSimpleCard(cardText, speechText)
+        .build();
+        return build;
 
     }
 	@Override

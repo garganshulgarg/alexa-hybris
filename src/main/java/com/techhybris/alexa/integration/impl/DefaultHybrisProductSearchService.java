@@ -38,12 +38,12 @@ public class DefaultHybrisProductSearchService implements HybrisProductSearchSer
 		{
 			return null;
 		}				
-		String url = hybrisBaseUrl + hybrisBaseSiteUid + "/products/search?query=camera&pageSize=20&fields=FULL";
+		String url = hybrisBaseUrl + hybrisBaseSiteUid + "/products/search?query=camera&pageSize=4&fields=FULL";
 		HybrisRequest request = new HybrisRequest(accessToken);
 		request.setUrl(url);
 		Map<String, String> postData = request.getPostData();
 		postData.put("fields","FULL");
-		postData.put("pageSize","4");
+		postData.put("pageSize","1");
 		postData.putAll(params);
 		return hybrisConnectivityClient.invokeRequest(request, ProductSearchResult.class);
 	}
