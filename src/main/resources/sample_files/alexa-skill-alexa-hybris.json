@@ -70,11 +70,26 @@
                 },
                 {
                     "name": "AMAZON.YesIntent",
-                    "samples": []
+                    "samples": [
+                        "yes i want to add it ",
+                        "please add it",
+                        "yes please",
+                        "you know it",
+                        "i do",
+                        "yeah",
+                        "yep",
+                        "yes"
+                    ]
                 },
                 {
                     "name": "AMAZON.NoIntent",
-                    "samples": []
+                    "samples": [
+                        "no thank you",
+                        "nope",
+                        "nopes",
+                        "i do not ",
+                        "no"
+                    ]
                 }
             ],
             "types": []
