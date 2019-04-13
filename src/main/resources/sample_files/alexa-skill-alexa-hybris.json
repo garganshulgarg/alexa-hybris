@@ -45,6 +45,9 @@
                         }
                     ],
                     "samples": [
+                        "i am searching for a {query}",
+                        "i am searching for {query}",
+                        "search for {query}",
                         "i want to buy a {query}",
                         "can i know if {query} is available",
                         "want to purchase a {query}",
