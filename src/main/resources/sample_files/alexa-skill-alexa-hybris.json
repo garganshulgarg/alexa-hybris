@@ -35,6 +35,40 @@
                 {
                     "name": "AMAZON.NavigateHomeIntent",
                     "samples": []
+                },
+                {
+                    "name": "ProductSearchIntent",
+                    "slots": [
+                        {
+                            "name": "query",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "i want to buy a {query}",
+                        "can i know if {query} is available",
+                        "want to purchase a {query}",
+                        "want to buy best {query}",
+                        "looking for a best {query}",
+                        "looking for a {query}",
+                        "want to buy a {query}",
+                        "want to purchase {query}",
+                        "is {query} available ",
+                        "check if {query} is available ",
+                        "please find a {query} for me",
+                        "is {query} available on store",
+                        "find best {query} for me ",
+                        "to find {query} for me",
+                        "to search if {query} is available on store"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": []
                 }
             ],
             "types": []
