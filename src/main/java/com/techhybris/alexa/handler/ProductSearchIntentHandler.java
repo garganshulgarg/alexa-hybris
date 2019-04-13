@@ -24,7 +24,6 @@ public class ProductSearchIntentHandler extends AbstractIntentHandler {
 		LOG.error("Access Token: {}", accessToken);
 		
 		ProductSearchResult productSearchResult = hybrisProductSearchService.findProducts(accessToken, getSlots(input));
-		LOG.error("Products {}",productSearchResult.getProducts());
 		addModel(input, "productSearchResult", productSearchResult);
 	}
 

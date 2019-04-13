@@ -1,64 +1,98 @@
 {
-	"interactionModel": {
-		"languageModel": {
-			"invocationName": "hybris",
-			"intents": [
-				{
-					"name": "AMAZON.CancelIntent",
-					"samples": []
-				},
-				{
-					"name": "AMAZON.HelpIntent",
-					"samples": []
-				},
-				{
-					"name": "AMAZON.StopIntent",
-					"samples": []
-				},
-				{
-					"name": "WelcomeHybrisIntent",
-					"slots": [
-						{
-							"name": "test",
-							"type": "AMAZON.SearchQuery"
-						}
-					],
-					"samples": [
-						"welcome hybris",
-						"say hello",
-						"say hello Hybris",
-						"hello",
-						"say hi",
-						"say hi hybris",
-						"hi",
-						"how are you"
-					]
-				},
-				{
-					"name": "AMAZON.FallbackIntent",
-					"samples": []
-				},
-				{
-					"name": "AMAZON.NavigateHomeIntent",
-					"samples": []
-				},
-				{
-					"name": "ProductSearchIntent",
-					"slots": [
-						{
-							"name": "query",
-							"type": "AMAZON.SearchQuery"
-						}
-					],
-					"samples": [
-						"Hybris please find best {query} for me",
-						"find {query}",
-						"Hybris find {query} ",
-						"Hybris find best {query} for me"
-					]
-				}
-			],
-			"types": []
-		}
-	}
+    "interactionModel": {
+        "languageModel": {
+            "invocationName": "hybris",
+            "intents": [
+                {
+                    "name": "AMAZON.CancelIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.HelpIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.StopIntent",
+                    "samples": []
+                },
+                {
+                    "name": "WelcomeHybrisIntent",
+                    "slots": [],
+                    "samples": [
+                        "say hello",
+                        "say hello Hybris",
+                        "hello",
+                        "say hi",
+                        "say hi hybris",
+                        "hi",
+                        "how are you"
+                    ]
+                },
+                {
+                    "name": "AMAZON.FallbackIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.NavigateHomeIntent",
+                    "samples": []
+                },
+                {
+                    "name": "ProductSearchIntent",
+                    "slots": [
+                        {
+                            "name": "query",
+                            "type": "AMAZON.SearchQuery"
+                        }
+                    ],
+                    "samples": [
+                        "search for a {query}",
+                        "i am looking for a {query}",
+                        "i am looking for a best {query}",
+                        "i am searching for a {query}",
+                        "i am searching for {query}",
+                        "search for {query}",
+                        "i want to buy a {query}",
+                        "can i know if {query} is available",
+                        "want to purchase a {query}",
+                        "want to buy best {query}",
+                        "looking for a best {query}",
+                        "looking for a {query}",
+                        "want to buy a {query}",
+                        "want to purchase {query}",
+                        "is {query} available ",
+                        "check if {query} is available ",
+                        "please find a {query} for me",
+                        "is {query} available on store",
+                        "find best {query} for me ",
+                        "to find {query} for me",
+                        "to search if {query} is available on store"
+                    ]
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": [
+                        "yes i want to add it ",
+                        "please add it",
+                        "yes please",
+                        "you know it",
+                        "i do",
+                        "yeah",
+                        "yep",
+                        "yes"
+                    ]
+                },
+                {
+                    "name": "AMAZON.NoIntent",
+                    "samples": [
+                        "no thank you",
+                        "nope",
+                        "nopes",
+                        "i do not ",
+                        "no"
+                    ]
+                }
+            ],
+            "types": []
+        }
+    }
 }
