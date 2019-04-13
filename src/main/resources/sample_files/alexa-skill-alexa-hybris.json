@@ -45,6 +45,7 @@
                         }
                     ],
                     "samples": [
+                        "search for a {query}",
                         "i am looking for a {query}",
                         "i am looking for a best {query}",
                         "i am searching for a {query}",
