@@ -1,4 +1,3 @@
-Following Facet are display:
-#foreach( $facet in $result.facets )
-    <li>$facet.name</li>
+#foreach( $product in $products )
+    <li>$product</li>
 #end

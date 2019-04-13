@@ -1,64 +1,64 @@
 {
-    "interactionModel": {
-        "languageModel": {
-            "invocationName": "hybris",
-            "intents": [
-                {
-                    "name": "AMAZON.CancelIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.HelpIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.StopIntent",
-                    "samples": []
-                },
-                {
-                    "name": "WelcomeHybrisIntent",
-                    "slots": [
-                        {
-                            "name": "test",
-                            "type": "AMAZON.SearchQuery"
-                        }
-                    ],
-                    "samples": [
-                        "welcome hybris",
-                        "say hello",
-                        "say hello Hybris",
-                        "hello",
-                        "say hi",
-                        "say hi hybris",
-                        "hi",
-                        "how are you"
-                    ]
-                },
-                {
-                    "name": "AMAZON.FallbackIntent",
-                    "samples": []
-                },
-                {
-                    "name": "AMAZON.NavigateHomeIntent",
-                    "samples": []
-                },
-                {
-                    "name": "ProductSearchIntent",
-                    "slots": [
-                        {
-                            "name": "query",
-                            "type": "AMAZON.SearchQuery"
-                        }
-                    ],
-                    "samples": [
-                        "Hybris please find best {query} for me",
-                        "find {query}",
-                        "Hybris find {query} ",
-                        "Hybris find best {query} for me"
-                    ]
-                }
-            ],
-            "types": []
-        }
-    }
+	"interactionModel": {
+		"languageModel": {
+			"invocationName": "hybris",
+			"intents": [
+				{
+					"name": "AMAZON.CancelIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.HelpIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.StopIntent",
+					"samples": []
+				},
+				{
+					"name": "WelcomeHybrisIntent",
+					"slots": [
+						{
+							"name": "test",
+							"type": "AMAZON.SearchQuery"
+						}
+					],
+					"samples": [
+						"welcome hybris",
+						"say hello",
+						"say hello Hybris",
+						"hello",
+						"say hi",
+						"say hi hybris",
+						"hi",
+						"how are you"
+					]
+				},
+				{
+					"name": "AMAZON.FallbackIntent",
+					"samples": []
+				},
+				{
+					"name": "AMAZON.NavigateHomeIntent",
+					"samples": []
+				},
+				{
+					"name": "ProductSearchIntent",
+					"slots": [
+						{
+							"name": "query",
+							"type": "AMAZON.SearchQuery"
+						}
+					],
+					"samples": [
+						"Hybris please find best {query} for me",
+						"find {query}",
+						"Hybris find {query} ",
+						"Hybris find best {query} for me"
+					]
+				}
+			],
+			"types": []
+		}
+	}
 }

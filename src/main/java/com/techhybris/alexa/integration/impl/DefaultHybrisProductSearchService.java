@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.techhybris.alexa.data.HybrisRequest;
-import com.techhybris.alexa.data.ProductSearchResult;
 import com.techhybris.alexa.integration.HybrisProductSearchService;
 import com.techhybris.alexa.integration.client.HybrisConnectivityClient;
+import com.techhybris.alexa.product.data.ProductSearchResult;
 
 public class DefaultHybrisProductSearchService implements HybrisProductSearchService {
 
@@ -45,7 +45,6 @@ public class DefaultHybrisProductSearchService implements HybrisProductSearchSer
 		postData.put("fields","FULL");
 		postData.put("pageSize","4");
 		postData.putAll(params);
-		//LOG.error(hybrisConnectivityClient1.invokeRequest(request, String.class));
 		return hybrisConnectivityClient.invokeRequest(request, ProductSearchResult.class);
 	}
 	
