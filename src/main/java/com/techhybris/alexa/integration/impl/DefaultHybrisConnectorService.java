@@ -1,6 +1,5 @@
 package com.techhybris.alexa.integration.impl;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import javax.annotation.Resource;
