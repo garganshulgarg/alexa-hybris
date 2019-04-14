@@ -3,29 +3,38 @@ package com.techhybris.alexa.handler;
 import static com.amazon.ask.request.Predicates.intentName;
 
 import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 
 import org.apache.commons.collections.MapUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
+import org.owasp.html.HtmlPolicyBuilder;
+import org.owasp.html.PolicyFactory;
 import org.springframework.beans.factory.annotation.Required;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.amazon.ask.dispatcher.request.handler.RequestHandler;
+import com.amazon.ask.model.IntentRequest;
 import com.amazon.ask.model.Response;
+import com.amazon.ask.model.Slot;
+import com.amazon.ask.response.ResponseBuilder;
 
 public abstract class AbstractIntentHandler implements RequestHandler {
 
 	private String intentName;
 	private String speachName;
+	private String repromptName;
 	private String cardName;
 
 	private static final String speachPath = "/view/speech";
+	private static final String rePromptPath = "/view/reprompt";
 	private static final String cardPath = "/view/card";
 	private static VelocityEngine velocityEngineSpeech;
 	private static VelocityEngine velocityEngineCard;
@@ -33,13 +42,22 @@ public abstract class AbstractIntentHandler implements RequestHandler {
     @Override
     public Optional<Response> handle(HandlerInput input) {
     	handleInternal(input);
-    	String speechText=getSpeechText(input);
-    	String cardText = getCardText(input);//="WelcomeHybris";
-    	
-        return input.getResponseBuilder()
-                .withSpeech(speechText)
-                .withSimpleCard(cardText, speechText)
-                .build();
+    	PolicyFactory policyFactory = new HtmlPolicyBuilder().toFactory();
+    	String speechText=policyFactory.sanitize(getSpeechText(input));
+    	String repromptText = policyFactory.sanitize(getRepromptText(input));
+    	String cardText = policyFactory.sanitize(getCardText(input));
+    	ResponseBuilder responseBuilder = input.getResponseBuilder();
+    	if(StringUtils.isNotEmpty(speechText)) {
+    		responseBuilder.withSpeech(speechText);
+    	}
+    	if(StringUtils.isNotEmpty(cardText) && StringUtils.isNotEmpty(speechText)) {
+    		responseBuilder.withSimpleCard(cardText, speechText);
+    	}
+    	if(StringUtils.isNotEmpty(repromptText)) {
+    		responseBuilder.withReprompt(repromptText);
+    	}
+    	Optional<Response> build = responseBuilder.build();
+        return build;
 
     }
 	@Override
@@ -49,6 +67,21 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 
 	protected abstract void handleInternal(HandlerInput input);
 	
+	protected IntentRequest getIntentRequest(HandlerInput input) {
+		if(input.getRequestEnvelope().getRequest() instanceof IntentRequest) {
+			return (IntentRequest) input.getRequestEnvelope().getRequest();
+		}
+		return null;
+	}
+	protected Map<String, String> getSlots(HandlerInput input) {
+		IntentRequest request = getIntentRequest(input);
+		Map<String, String> slotValues = new HashMap<>();
+		Map<String, Slot> slots =  request.getIntent().getSlots();
+		for(String key : slots.keySet()) {
+			slotValues.put(key, slots.get(key).getValue());
+		}
+		return slotValues;
+	}
 	protected String getAccessToken(HandlerInput input, boolean isAccessTokenRequired) {
 		if(isAccessTokenRequired) {
 			return input
@@ -78,7 +111,11 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 		
 		
 	}
-	private String getSpeechText(HandlerInput input) {
+	protected String getSpeechText(HandlerInput input) {
+		if(null == speachName)
+		{
+			return null;
+		}
         VelocityEngine ve = getSpeechVelocityEngine();
         /*  next, get the Template  */
         Template t = ve.getTemplate( speachName + ".vm" );
@@ -91,7 +128,30 @@ public abstract class AbstractIntentHandler implements RequestHandler {
         /* show the World */
         return writer.toString(); 		
 	}
-	private String getCardText(HandlerInput input) {
+	
+	protected String getRepromptText(HandlerInput input) {
+		if(null == repromptName)
+		{
+			return null;
+		}
+        VelocityEngine ve = getRepromptVelocityEngine();
+        /*  next, get the Template  */
+        Template t = ve.getTemplate( repromptName + ".vm" );
+        /*  create a context and add data */
+        VelocityContext context = new VelocityContext();
+        addContext(input,context);
+        /* now render the template into a StringWriter */
+        StringWriter writer = new StringWriter();
+        t.merge( context, writer );
+        /* show the World */
+        return writer.toString(); 		
+	}
+	
+	protected String getCardText(HandlerInput input) {
+		if(null == cardName)
+		{
+			return null;
+		}
         VelocityEngine ve = getCardVelocityEngine();
         /*  next, get the Template  */
         Template t = ve.getTemplate( cardName  + ".vm");
@@ -110,6 +170,13 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 	private VelocityEngine getSpeechVelocityEngine() {
 		if (velocityEngineSpeech == null) {
 			velocityEngineSpeech = createVelocityEngine(getResourcePath() + speachPath);
+		}
+		return velocityEngineSpeech;
+	}
+	
+	private VelocityEngine getRepromptVelocityEngine() {
+		if (velocityEngineSpeech == null) {
+			velocityEngineSpeech = createVelocityEngine(getResourcePath() + rePromptPath);
 		}
 		return velocityEngineSpeech;
 	}
@@ -146,6 +213,11 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 
 	public void setCardName(String cardName) {
 		this.cardName = cardName;
+	}
+	
+	
+	public void setRepromptName(String repromptName) {
+		this.repromptName = repromptName;
 	}
 	protected final String getResourcePath() {
 		ClassLoader classLoader = getClass().getClassLoader();

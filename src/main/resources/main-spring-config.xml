@@ -41,6 +41,13 @@
 		<property name="speachName" value="welcomeHybris" />
    		<property name="cardName" value="welcomeHybris" />
 	</bean>
+	<bean id="productSearchHandler"
+		class="com.techhybris.alexa.handler.ProductSearchIntentHandler">
+		<property name="intentName" value="ProductSearchIntent" />
+		<property name="speachName" value="productSearchResult" />
+   		<property name="cardName" value="productSearchResult" />
+	</bean>
+	
 	<bean id="helpHandler"
 		class="com.techhybris.alexa.handler.HelpIntentHandler">
 		<property name="intentName" value="AMAZON.HelpIntent" />
@@ -48,6 +55,9 @@
 	<bean id="launchRequestHandler"
 		class="com.techhybris.alexa.handler.LaunchRequestHandler">
 		<property name="intentName" value="AMAZON.LaunchRequest" />
+		<property name="speachName" value="launchHybris" />
+		<property name="repromptName" value="launchHybris"></property>
+   		<property name="cardName" value="launchHybris" />
 	</bean>
 	<bean id="sessionEndedHandler"
 		class="com.techhybris.alexa.handler.SessionEndedRequestHandler">
@@ -65,6 +75,7 @@
 				<ref bean="helpHandler" />
 				<ref bean="launchRequestHandler" />
 				<ref bean="sessionEndedHandler" />
+				<ref bean="productSearchHandler" />
 			</list>
 		</property>
 	</bean>
@@ -72,6 +83,9 @@
 
 	<bean id="hybrisConnectorService"
 		class="com.techhybris.alexa.integration.impl.DefaultHybrisConnectorService"/>
+
+	<bean id="hybrisProductSearchService"
+		class="com.techhybris.alexa.integration.impl.DefaultHybrisProductSearchService"/>
 		
 	
 	<!-- Importing separate Spring Rest Template configurations -->

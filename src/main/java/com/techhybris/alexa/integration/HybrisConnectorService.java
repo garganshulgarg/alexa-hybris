@@ -1,6 +1,6 @@
 package com.techhybris.alexa.integration;
 
-import com.techhybris.alexa.response.data.UserData;
+import com.techhybris.alexa.user.data.UserData;
 
 public interface HybrisConnectorService {
 	

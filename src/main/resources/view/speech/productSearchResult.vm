@@ -1,0 +1,3 @@
+ #foreach( $product in $productSearchResult.products )
+    $product.name
+ #end
