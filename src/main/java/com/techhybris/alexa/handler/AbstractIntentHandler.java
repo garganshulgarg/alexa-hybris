@@ -17,6 +17,8 @@ import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.runtime.resource.loader.FileResourceLoader;
 import org.owasp.html.HtmlPolicyBuilder;
 import org.owasp.html.PolicyFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Required;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
@@ -33,10 +35,13 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 	private String repromptName;
 	private String cardName;
 
+	private Logger LOG = LoggerFactory.getLogger(LaunchRequestHandler.class);
+	
 	private static final String speachPath = "/view/speech";
 	private static final String rePromptPath = "/view/reprompt";
 	private static final String cardPath = "/view/card";
 	private static VelocityEngine velocityEngineSpeech;
+	private static VelocityEngine velocityEngineReprompt;
 	private static VelocityEngine velocityEngineCard;
 
     @Override
@@ -175,10 +180,10 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 	}
 	
 	private VelocityEngine getRepromptVelocityEngine() {
-		if (velocityEngineSpeech == null) {
-			velocityEngineSpeech = createVelocityEngine(getResourcePath() + rePromptPath);
+		if (velocityEngineReprompt == null) {
+			velocityEngineReprompt = createVelocityEngine(getResourcePath() + rePromptPath);
 		}
-		return velocityEngineSpeech;
+		return velocityEngineReprompt;
 	}
 
 	private VelocityEngine getCardVelocityEngine() {

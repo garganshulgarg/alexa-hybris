@@ -1,10 +1,12 @@
 package com.techhybris.alexa.integration.impl;
 
-import java.util.Map;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.client.utils.URIBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,6 +17,9 @@ import com.techhybris.alexa.integration.client.HybrisConnectivityClient;
 import com.techhybris.alexa.user.data.UserData;
 
 public class DefaultHybrisConnectorService implements HybrisConnectorService {
+	
+	private static final String FIELDS = "fields";
+	private static final String PAGE_SIZE = "pageSize";
 	private Logger LOG = LoggerFactory.getLogger(DefaultHybrisConnectorService.class);
 	
 	
@@ -36,15 +41,22 @@ public class DefaultHybrisConnectorService implements HybrisConnectorService {
 		if(StringUtils.isEmpty(accessToken))
 		{
 			return null;
-		}				
-		String url = hybrisBaseUrl + hybrisBaseSiteUid + "/users/current/carts";
-		HybrisRequest request = new HybrisRequest(accessToken);
-		request.setUrl(url);
-		Map<String, String> params = request.getPostData();
-		params.put("fields","BASIC");
-		params.put("savedCartsOnly","false");
-		params.put("pageSize","20");
-		return hybrisCartClient.invokeRequest(request, String.class);
+		}
+		
+		try {
+			URI uri = new URIBuilder(hybrisBaseUrl + hybrisBaseSiteUid + "/users/current/carts")
+											.addParameter(FIELDS, "FULL")
+											.addParameter(PAGE_SIZE, "20")
+											.build();
+			HybrisRequest request = new HybrisRequest(accessToken);
+			request.setUrl(uri.toString());
+			return hybrisCartClient.invokeRequest(request, String.class);
+
+		} catch (URISyntaxException e) {
+			LOG.error(e.getMessage());
+			return null;
+		}
+		
 	}
 
 	@Override
@@ -52,13 +64,20 @@ public class DefaultHybrisConnectorService implements HybrisConnectorService {
 		if(StringUtils.isEmpty(accessToken))
 		{
 			return null;
-		}				
-		String url = hybrisBaseUrl + hybrisBaseSiteUid + "/users/current";
-		HybrisRequest request = new HybrisRequest(accessToken);
-		request.setUrl(url);
-		Map<String, String> params = request.getPostData();
-		params.put("fields","BASIC");
-		return hybrisConnectivityClient.invokeRequest(request, UserData.class);
+		}
+		try {
+			URI uri = new URIBuilder(hybrisBaseUrl + hybrisBaseSiteUid + "/users/current")
+											.addParameter(FIELDS, "FULL")
+											.build();
+			HybrisRequest request = new HybrisRequest(accessToken);
+			request.setUrl(uri.toString());
+			return hybrisConnectivityClient.invokeRequest(request, UserData.class);
+
+		} catch (URISyntaxException e) {
+			LOG.error(e.getMessage());
+			return null;
+		}
+		
 		
 	}
 }
