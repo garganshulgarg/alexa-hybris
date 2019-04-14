@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import com.techhybris.alexa.data.HybrisRequest;
 import com.techhybris.alexa.integration.HybrisConnectorService;
 import com.techhybris.alexa.integration.client.HybrisConnectivityClient;
-import com.techhybris.alexa.response.data.UserData;
+import com.techhybris.alexa.user.data.UserData;
 
 public class DefaultHybrisConnectorService implements HybrisConnectorService {
 	private Logger LOG = LoggerFactory.getLogger(DefaultHybrisConnectorService.class);
