@@ -51,6 +51,18 @@
 	<bean id="helpHandler"
 		class="com.techhybris.alexa.handler.HelpIntentHandler">
 		<property name="intentName" value="AMAZON.HelpIntent" />
+		<property name="speachName" value="helpHybris" />
+		<property name="repromptName" value="helpHybris"></property>
+   		<property name="cardName" value="helpHybris" />
+	</bean>
+	<bean id="yesIntentHandler"
+		class="com.techhybris.alexa.handler.YesIntentHandler">
+		<property name="intentName" value="AMAZON.YesIntent" />
+		<property name="helpHandler" ref="helpHandler"/>
+	</bean>
+	<bean id="noIntentHandler"
+		class="com.techhybris.alexa.handler.NoIntentHandler">
+		<property name="intentName" value="AMAZON.NoIntent" />
 	</bean>
 	<bean id="launchRequestHandler"
 		class="com.techhybris.alexa.handler.LaunchRequestHandler">
@@ -73,6 +85,8 @@
 				<ref bean="fallbackHandler" />
 				<ref bean="welcomeHybrisHandler" />
 				<ref bean="helpHandler" />
+				<ref bean="yesIntentHandler" />
+				<ref bean="noIntentHandler"/>
 				<ref bean="launchRequestHandler" />
 				<ref bean="sessionEndedHandler" />
 				<ref bean="productSearchHandler" />
