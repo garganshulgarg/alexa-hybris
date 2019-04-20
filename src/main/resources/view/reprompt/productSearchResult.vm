@@ -1,3 +1,4 @@
+ Sorry, I did not receive any input.
  #if( $productSearchResult != $null )
  	We discovered following $productSearchResult.products.size() products for you
  	 #foreach( $product in $productSearchResult.products )
@@ -7,4 +8,6 @@
  #else
 	Sorry, we are unable to find any matching results ? Please try again
  #end
+ 
+
  

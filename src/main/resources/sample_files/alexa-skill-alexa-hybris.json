@@ -68,6 +68,20 @@
                         "cart details",
                         "What i have in my cart"
                     ]
+                },
+                {
+                    "name": "AddToCartIntent",
+                    "slots": [
+                        {
+                            "name": "position",
+                            "type": "AMAZON.NUMBER"
+                        }
+                    ],
+                    "samples": [
+                        "add {position}",
+                        "add {position} product to cart",
+                        "add {position} product to basket"
+                    ]
                 }
             ],
             "types": []

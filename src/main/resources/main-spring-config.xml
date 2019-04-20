@@ -45,7 +45,15 @@
 		class="com.techhybris.alexa.handler.ProductSearchIntentHandler">
 		<property name="intentName" value="ProductSearchIntent" />
 		<property name="speachName" value="productSearchResult" />
+		<property name="repromptName" value="productSearchResult" />
    		<property name="cardName" value="productSearchResult" />
+	</bean>
+	<bean id="addToCartHandler"
+		class="com.techhybris.alexa.handler.AddToCartIntentHandler">
+		<property name="intentName" value="AddToCartIntent" />
+		<property name="speachName" value="addToCartResult" />
+		<property name="repromptName" value="addToCartResult" />
+   		<property name="cardName" value="addToCartResult" />
 	</bean>
 	
 	<bean id="helpHandler"
@@ -102,6 +110,7 @@
 				<ref bean="sessionEndedHandler" />
 				<ref bean="productSearchHandler" />
 				<ref bean="cartDetailsRequestHandler"/>
+				<ref bean="addToCartHandler"/>
 			</list>
 		</property>
 	</bean>
