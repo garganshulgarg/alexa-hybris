@@ -228,5 +228,15 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 		ClassLoader classLoader = getClass().getClassLoader();
 		return classLoader.getResource("resources").getPath();
 	}
+	
+	
+	protected void setSessionAttributes(HandlerInput input, String key, Object value) {
+		if(null != key && null != value) {
+			Map<String, Object> sessionMap = new HashMap<>();
+			sessionMap.put(key, value);
+			input.getAttributesManager().setSessionAttributes(sessionMap);
+		}
+		
+	}
 
 }

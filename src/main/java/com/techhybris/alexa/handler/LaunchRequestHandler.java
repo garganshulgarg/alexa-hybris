@@ -31,7 +31,14 @@ public class LaunchRequestHandler extends AbstractIntentHandler {
 		String accessToken = getAccessToken(input, true);
 		LOG.error("Access Token: {}", accessToken);
 		UserData user = hybrisConnectorService.getUserProfile(accessToken);
+		
+		// Setting the attribute property for data persistence.
+		// If the user says "yes" to the reprompt question, the script will know what to do next.
+		
+		setSessionAttributes(input, "type", "help");
 		addModel(input, "user", user);
+		
+		//
 
 	}
 
