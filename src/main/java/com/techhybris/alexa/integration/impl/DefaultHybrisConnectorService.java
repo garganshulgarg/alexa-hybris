@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
+import com.techhybris.alexa.cart.data.CartListData;
 import com.techhybris.alexa.data.HybrisRequest;
 import com.techhybris.alexa.integration.HybrisConnectorService;
 import com.techhybris.alexa.integration.client.HybrisConnectivityClient;
@@ -27,7 +28,7 @@ public class DefaultHybrisConnectorService implements HybrisConnectorService {
 	private HybrisConnectivityClient<UserData> hybrisConnectivityClient;
 
 	@Resource(name="hybrisConnectivityClient")
-	private HybrisConnectivityClient<String> hybrisCartClient;
+	private HybrisConnectivityClient<CartListData> hybrisCartClient;
 
 	@Value("${hybris.base.url}")
 	private String hybrisBaseUrl;
@@ -37,7 +38,7 @@ public class DefaultHybrisConnectorService implements HybrisConnectorService {
 	
 	
 	@Override
-	public String getCurrentCustomerCart(String accessToken) {
+	public CartListData getCurrentCustomerCart(String accessToken) {
 		if(StringUtils.isEmpty(accessToken))
 		{
 			return null;
@@ -50,7 +51,7 @@ public class DefaultHybrisConnectorService implements HybrisConnectorService {
 											.build();
 			HybrisRequest request = new HybrisRequest(accessToken);
 			request.setUrl(uri.toString());
-			return hybrisCartClient.invokeRequest(request, String.class);
+			return hybrisCartClient.invokeRequest(request, CartListData.class);
 
 		} catch (URISyntaxException e) {
 			LOG.error(e.getMessage());

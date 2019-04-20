@@ -17,23 +17,22 @@ public class YesIntentHandler extends AbstractIntentHandler {
 
 	private Logger LOG = LoggerFactory.getLogger(LaunchRequestHandler.class);
 	private HelpIntentHandler helpHandler;
+	private CartDetailsRequestHandler cartDetailsRequestHandler;
+	private ProductSearchIntentHandler productSearchIntentHandler;
 	@Override
 	public Optional<Response> handle(HandlerInput input) {
-		LOG.error("YesIntent Handler is called.");
 		String speechText = "";
 		Map<String, Object> sessionAttributes = input.getAttributesManager().getSessionAttributes();
 		Object typeObject = sessionAttributes.get("type");
-		LOG.error("YesIntent Handler typeObject "+typeObject);
 		if(null != typeObject && typeObject instanceof String) {
 			String type = (String) typeObject;
 			switch (type) {
-			case "help":{
-				LOG.error("Returning Help Intent Handler");
+			case "help":
 				return helpHandler.handle(input);
-			}
-				
 			case "cartDetails":
-				return new LaunchRequestHandler().handle(input);
+				return cartDetailsRequestHandler.handle(input);
+			case "Continue_Shopping":
+				return productSearchIntentHandler.handle(input);	
 			default:
 				speechText = "Sorry, I do not understand how to process that.";
 			}
@@ -52,6 +51,19 @@ public class YesIntentHandler extends AbstractIntentHandler {
 	public void setHelpHandler(HelpIntentHandler helpHandler) {
 		this.helpHandler = helpHandler;
 	}
+
+	@Required
+	public void setCartDetailsRequestHandler(CartDetailsRequestHandler cartDetailsRequestHandler) {
+		this.cartDetailsRequestHandler = cartDetailsRequestHandler;
+	}
+	@Required
+	public void setProductSearchIntentHandler(ProductSearchIntentHandler productSearchIntentHandler) {
+		this.productSearchIntentHandler = productSearchIntentHandler;
+	}
+	
+	
+	
+	
 	
 	
 	

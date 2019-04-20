@@ -1,0 +1,17 @@
+#if( $cartListData != $null )
+	#if( $cartListData.carts.size() != 0)
+		#foreach( $cart in $cartListData.carts )
+			Your cart total is $cart.totalPriceWithTax.currencyIso $cart.totalPriceWithTax.value and your contains following products
+			#foreach( $entry in $cart.entries )
+			 	$entry.product.name,	
+    		#end
+    		.Do you want to continue shopping?
+    		#break;
+    		
+		#end
+	#else
+  		Your Cart is Empty currently. Do you want to continue shopping?
+	#end	
+#else
+	Your Cart is Empty currently. Do you want to continue shopping?	 	
+#end

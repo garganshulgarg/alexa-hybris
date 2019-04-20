@@ -82,6 +82,9 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 		IntentRequest request = getIntentRequest(input);
 		Map<String, String> slotValues = new HashMap<>();
 		Map<String, Slot> slots =  request.getIntent().getSlots();
+		if(null == slots) {
+			return null;
+		}
 		for(String key : slots.keySet()) {
 			slotValues.put(key, slots.get(key).getValue());
 		}
