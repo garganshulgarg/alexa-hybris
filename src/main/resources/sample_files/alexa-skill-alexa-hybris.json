@@ -19,6 +19,7 @@
                     "name": "WelcomeHybrisIntent",
                     "slots": [],
                     "samples": [
+                        "welcome hybris",
                         "say hello",
                         "say hello Hybris",
                         "hello",
@@ -45,50 +46,27 @@
                         }
                     ],
                     "samples": [
-                        "search for a {query}",
-                        "i am looking for a {query}",
-                        "i am looking for a best {query}",
-                        "i am searching for a {query}",
-                        "i am searching for {query}",
-                        "search for {query}",
-                        "i want to buy a {query}",
-                        "can i know if {query} is available",
-                        "want to purchase a {query}",
-                        "want to buy best {query}",
-                        "looking for a best {query}",
-                        "looking for a {query}",
-                        "want to buy a {query}",
-                        "want to purchase {query}",
-                        "is {query} available ",
-                        "check if {query} is available ",
-                        "please find a {query} for me",
-                        "is {query} available on store",
-                        "find best {query} for me ",
-                        "to find {query} for me",
-                        "to search if {query} is available on store"
-                    ]
-                },
-                {
-                    "name": "AMAZON.YesIntent",
-                    "samples": [
-                        "yes i want to add it ",
-                        "please add it",
-                        "yes please",
-                        "you know it",
-                        "i do",
-                        "yeah",
-                        "yep",
-                        "yes"
+                        "Hybris please find best {query} for me",
+                        "find {query}",
+                        "Hybris find {query} ",
+                        "Hybris find best {query} for me"
                     ]
                 },
                 {
                     "name": "AMAZON.NoIntent",
+                    "samples": []
+                },
+                {
+                    "name": "AMAZON.YesIntent",
+                    "samples": []
+                },
+                {
+                    "name": "CartDetailsIntent",
+                    "slots": [],
                     "samples": [
-                        "no thank you",
-                        "nope",
-                        "nopes",
-                        "i do not ",
-                        "no"
+                        "go to cart",
+                        "cart details",
+                        "What i have in my cart"
                     ]
                 }
             ],
