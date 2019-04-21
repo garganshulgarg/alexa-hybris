@@ -48,7 +48,7 @@ public class DefaultHybrisAddToCartConnectorService implements HybrisAddToCartCo
 			HybrisRequest request = new HybrisRequest(accessToken);
 			request.setUrl(uri.toString());
 			request.setMethod(HttpMethod.POST);
-			Map<String, OrderEntryData> map=new HashMap();
+			Map<String, Object> map=new HashMap();
 			OrderEntryData oed=new OrderEntryData();
 			Product product=new Product();
 			product.setCode(productCode);

@@ -14,14 +14,14 @@ public class HybrisRequest {
 	private HttpMethod method;
 	private String url;
 	private Map<String, String> headers;
-	private Map<String, OrderEntryData> postData;
+	private Map<String, Object> postData;
 	
 	public HybrisRequest(final String accessToken) {
 		method = HttpMethod.GET;
 		headers = new HashMap<String, String>();
 		headers.put("charset", "UTF-8");
 		headers.put("Authorization", "Bearer " + accessToken);
-		postData = new HashMap<String, OrderEntryData>();
+		postData = new HashMap<String, Object>();
 	}
 
 	public HttpMethod getMethod() {
@@ -40,11 +40,11 @@ public class HybrisRequest {
 		this.headers = headers;
 	}
 
-	public void setPostData(Map<String, OrderEntryData> postData) {
+	public void setPostData(Map<String, Object> postData) {
 		this.postData = postData;
 	}
 
-	public Map<String, OrderEntryData> getPostData() {
+	public Map<String, Object> getPostData() {
 		return postData;
 	}
 
