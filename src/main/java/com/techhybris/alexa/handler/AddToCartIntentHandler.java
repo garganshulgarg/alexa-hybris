@@ -10,15 +10,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
+import com.techhybris.alexa.cart.data.Cart;
+import com.techhybris.alexa.cart.data.CartListData;
 import com.techhybris.alexa.cartmodification.data.CartModificationData;
 import com.techhybris.alexa.integration.HybrisAddToCartConnectorService;
+import com.techhybris.alexa.integration.HybrisConnectorService;
+import com.techhybris.alexa.integration.HybrisCreateOrRestoreCartConnectorService;
+import org.apache.commons.collections.CollectionUtils;
 
 public class AddToCartIntentHandler extends AbstractIntentHandler {
 
-	private Logger LOG = LoggerFactory.getLogger(AddToCartIntentHandler.class);
+private Logger LOG = LoggerFactory.getLogger(AddToCartIntentHandler.class);
 	
 	@Resource(name = "hybrisAddToCartConnectorService")
 	private HybrisAddToCartConnectorService hybrisAddToCartConnectorService;
+	
+	@Resource(name = "hybrisConnectorService")
+	private HybrisConnectorService hybrisConnectorService;
+	
+	@Resource(name = "hybrisCreateOrRestoreCartConnectorService")
+	private HybrisCreateOrRestoreCartConnectorService hybrisCreateOrRestoreCartConnectorService;
 	
 	@Override
 	protected void handleInternal(HandlerInput input) {
@@ -46,6 +57,13 @@ public class AddToCartIntentHandler extends AbstractIntentHandler {
 			selectedProductCode = productList.get(position-1);
 			LOG.error("Product selected by customer {}", selectedProductCode);
 		}
+		CartListData cartListData = hybrisConnectorService.getCurrentCustomerCart(accessToken);
+		if(null!=cartListData && CollectionUtils.isEmpty(cartListData.getCarts())) {
+			LOG.error("Total Carts: "+cartListData.getCarts().size());
+			Cart cart=hybrisCreateOrRestoreCartConnectorService.createOrRestoreCart(accessToken);
+			LOG.error("Cart code: "+cart.getCode());
+			LOG.error("Cart guid: "+cart.getGuid());
+		}
 		
 		CartModificationData cmd=hybrisAddToCartConnectorService.addToCart(selectedProductCode,accessToken);
 		setSessionAttributes(input, "type", "cartDetails");
@@ -54,8 +72,6 @@ public class AddToCartIntentHandler extends AbstractIntentHandler {
 			addModel(input, "productName", productMap.get(selectedProductCode));
 		}
 	}
-	
-	
 	
 	int getNumberFromString(String position) {
 		if(StringUtils.isEmpty(position))

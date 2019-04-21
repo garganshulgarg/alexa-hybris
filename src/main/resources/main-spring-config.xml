@@ -125,6 +125,9 @@
 	<bean id="hybrisAddToCartConnectorService"
 		class="com.techhybris.alexa.integration.impl.DefaultHybrisAddToCartConnectorService"/>
 		
+		<bean id="hybrisCreateOrRestoreCartConnectorService"
+		class="com.techhybris.alexa.integration.impl.DefaultHybrisCreateOrRestoreCartConnectorService"/>
+		
 	<!-- Importing separate Spring Rest Template configurations -->
 	<!-- Importing separate Spring Integration configurations -->
 	<import resource="classpath:resources/integration/sap-hybris-common-integration.xml"/>	
