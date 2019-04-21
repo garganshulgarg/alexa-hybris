@@ -74,7 +74,7 @@
                     "slots": [
                         {
                             "name": "position",
-                            "type": "AMAZON.NUMBER"
+                            "type": "AMAZON.SearchQuery"
                         }
                     ],
                     "samples": [

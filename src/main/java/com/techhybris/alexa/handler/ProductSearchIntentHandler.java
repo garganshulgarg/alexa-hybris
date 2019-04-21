@@ -1,7 +1,9 @@
 package com.techhybris.alexa.handler;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -29,12 +31,14 @@ public class ProductSearchIntentHandler extends AbstractIntentHandler {
 		
 		ProductSearchResult productSearchResult = hybrisProductSearchService.findProducts(accessToken, getSlots(input));
 		if(null != productSearchResult) {
-			List<String> productCodes = Lists.newArrayList();
+			List<String> productCodeList = Lists.newArrayList();
+			Map<String, String> productDetails = new HashMap<>();
 			for (Product product : productSearchResult.getProducts()) {
-				productCodes.add(product.getCode());
+				productDetails.put(product.getCode(), product.getName());
+				productCodeList.add(product.getCode());
 			}
-			LOG.error("productCodes: {}", productCodes);
-			setSessionAttributes(input, "products", productCodes);
+			setSessionAttributes(input, "products", productDetails);
+			setSessionAttributes(input, "productList", productCodeList);
 		}
 		
 		addModel(input, "productSearchResult", productSearchResult);

@@ -5,13 +5,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
 import com.techhybris.alexa.cartmodification.data.CartModificationData;
 import com.techhybris.alexa.integration.HybrisAddToCartConnectorService;
-import com.techhybris.alexa.integration.HybrisConnectorService;
 
 public class AddToCartIntentHandler extends AbstractIntentHandler {
 
@@ -26,23 +26,58 @@ public class AddToCartIntentHandler extends AbstractIntentHandler {
 		LOG.error("Access Token: {}", accessToken);
 		Map<String, Object> sessionAttributes = input.getAttributesManager().getSessionAttributes();
 		Object productsObject = sessionAttributes.get("products");
+		Object productListObject = sessionAttributes.get("productList");
 		String selectedProductCode = null;
-		if(null != productsObject) {
-			List<String> productList = (List<String>) productsObject;
-			// This is hardcoded we need to use getSlots
-			int position = 2;
+		List<String> productList = null;
+		Map<String, String> productMap = null;
+		
+		if(null != productsObject && null != productListObject) {
+			productMap = (Map<String, String>) productsObject;
+			productList = (List<String>) productListObject;
+			
+			Map<String, String> slots = getSlots(input);
+			int position = -1;
+			if(null != slots && null != slots.get("position")) {
+				position = getNumberFromString(slots.get("position"));
+				LOG.error("position selected by customer {}", position);
+				
+			}
+			
 			selectedProductCode = productList.get(position-1);
+			LOG.error("Product selected by customer {}", selectedProductCode);
 		}
 		
-		//Product is hardcoded currently
-		CartModificationData cmd=hybrisAddToCartConnectorService.addToCart("1432722",accessToken);
-		LOG.error("Status code: "+cmd.getStatusCode());
-		LOG.error("Status message: "+cmd.getStatusMessage());
-		LOG.error("Entry number: "+cmd.getEntry().getEntryNumber());
-		LOG.error("Entry quantity: "+cmd.getEntry().getQuantity());
-		LOG.error("Quantity Added: "+cmd.getQuantityAdded());
-
+		CartModificationData cmd=hybrisAddToCartConnectorService.addToCart(selectedProductCode,accessToken);
 		setSessionAttributes(input, "type", "cartDetails");
+		
+		if(null != selectedProductCode) {
+			addModel(input, "productName", productMap.get(selectedProductCode));
+		}
+	}
+	
+	
+	
+	int getNumberFromString(String position) {
+		if(StringUtils.isEmpty(position))
+		{
+			return -1;
+		}
+		
+		if(position.contains("first") || position.contains("1") || position.contains("1st")) {
+			return 1;
+		}
+		if(position.contains("second") || position.contains("2") || position.contains("2nd")) {
+			return 2;
+		}
+		if(position.contains("third") || position.contains("3") || position.contains("3rd")) {
+			return 3;
+		}
+		if(position.contains("fourth") || position.contains("4") || position.contains("4th")) {
+			return 4;
+		}
+		
+		return -1;
+		
 	}
 
 	
