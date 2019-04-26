@@ -112,7 +112,9 @@
 
 	<bean id="hybrisProductSearchService"
 		class="com.techhybris.alexa.integration.impl.DefaultHybrisProductSearchService"/>
-		
+	
+	<bean id="hybrisProductFacetsService"
+		class="com.techhybris.alexa.service.impl.HybrisProductFacetsServiceImpl"/>	
 	
 	<!-- Importing separate Spring Rest Template configurations -->
 	<!-- Importing separate Spring Integration configurations -->
