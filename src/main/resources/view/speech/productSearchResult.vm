@@ -1,3 +1,10 @@
- #foreach( $product in $productSearchResult.products )
-    $product.name
+ #if( $productSearchResult != $null )
+ 	We discovered following $productSearchResult.products.size() products for you
+ 	 #foreach( $product in $productSearchResult.products )
+    	$product.name,
+ 	 #end
+ 	 .You can add any of these products to basket. You can say like add first product, add second product to basket?
+ #else
+	Sorry, we are unable to find any matching results ? Please try again
  #end
+ 

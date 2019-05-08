@@ -6,20 +6,22 @@ import java.util.Map;
 
 import org.springframework.http.HttpMethod;
 
+import com.techhybris.alexa.orderentry.data.OrderEntryData;
+
 
 public class HybrisRequest {
 
 	private HttpMethod method;
 	private String url;
 	private Map<String, String> headers;
-	private Map<String, String> postData;
+	private Map<String, Object> postData;
 	
 	public HybrisRequest(final String accessToken) {
 		method = HttpMethod.GET;
 		headers = new HashMap<String, String>();
 		headers.put("charset", "UTF-8");
 		headers.put("Authorization", "Bearer " + accessToken);
-		postData = new HashMap<String, String>();
+		postData = new HashMap<String, Object>();
 	}
 
 	public HttpMethod getMethod() {
@@ -38,7 +40,11 @@ public class HybrisRequest {
 		this.headers = headers;
 	}
 
-	public Map<String, String> getPostData() {
+	public void setPostData(Map<String, Object> postData) {
+		this.postData = postData;
+	}
+
+	public Map<String, Object> getPostData() {
 		return postData;
 	}
 

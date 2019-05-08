@@ -26,11 +26,18 @@ public class DefaultHybrisConnectivityClient<T> implements HybrisConnectivityCli
 	@Resource(name = "hybrisRestTemplate")
 	private RestTemplate hybrisRestTemplate;
 
+	private static final String PRODUCT="product";
 	@Override
 	public Object invokeRequest(HybrisRequest request, Class clazz) {
 		try {
 			LOG.error(request.getUrl());
-			HttpEntity<?> entity = new HttpEntity(getHybrisSpecificHttpHeader(request));	
+			HttpEntity<?> entity;
+			if(null!=request.getPostData()) {
+				entity = new HttpEntity(request.getPostData().get(PRODUCT),getHybrisSpecificHttpHeader(request));	
+			}
+			else {
+			    entity = new HttpEntity(getHybrisSpecificHttpHeader(request));	
+			}
 			ResponseEntity<T> response = hybrisRestTemplate.exchange(request.getUrl(), request.getMethod(), entity, clazz);
 			if (null != response.getStatusCode() && response.getStatusCode().equals(HttpStatus.OK)) {
 				return response.getBody();
