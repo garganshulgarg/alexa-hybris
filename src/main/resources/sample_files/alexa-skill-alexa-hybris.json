@@ -68,6 +68,15 @@
                         "cart details",
                         "What i have in my cart"
                     ]
+                },
+                {
+                    "name": "FacetDetailsIntent",
+                    "slots": [],
+                    "samples": [
+                        "tell me filters",
+                        "show me available filters",
+                        "show me filters"
+                    ]
                 }
             ],
             "types": []

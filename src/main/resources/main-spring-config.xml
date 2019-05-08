@@ -45,7 +45,15 @@
 		class="com.techhybris.alexa.handler.ProductSearchIntentHandler">
 		<property name="intentName" value="ProductSearchIntent" />
 		<property name="speachName" value="productSearchResult" />
+   		<property name="repromptName" value="productSearchResult"/>
    		<property name="cardName" value="productSearchResult" />
+	</bean>
+	<bean id="facetDetailsHandler"
+		class="com.techhybris.alexa.handler.FacetDetailsRequestHandler">
+		<property name="intentName" value="FacetDetailsIntent" />
+		<property name="speachName" value="facetDetailsResult" />
+   		<property name="repromptName" value="facetDetailsResult"/>
+   		<property name="cardName" value="facetDetailsResult" />
 	</bean>
 	
 	<bean id="helpHandler"
@@ -101,6 +109,7 @@
 				<ref bean="launchRequestHandler" />
 				<ref bean="sessionEndedHandler" />
 				<ref bean="productSearchHandler" />
+				<ref bean="facetDetailsHandler" />
 				<ref bean="cartDetailsRequestHandler"/>
 			</list>
 		</property>

@@ -59,6 +59,7 @@ public abstract class AbstractIntentHandler implements RequestHandler {
     		responseBuilder.withSimpleCard(cardText, speechText);
     	}
     	if(StringUtils.isNotEmpty(repromptText)) {
+    		LOG.error("Response with repromptText");
     		responseBuilder.withReprompt(repromptText);
     	}
     	Optional<Response> build = responseBuilder.build();
@@ -140,6 +141,7 @@ public abstract class AbstractIntentHandler implements RequestHandler {
 	protected String getRepromptText(HandlerInput input) {
 		if(null == repromptName)
 		{
+			LOG.error("repromptName is null");
 			return null;
 		}
         VelocityEngine ve = getRepromptVelocityEngine();
@@ -152,6 +154,7 @@ public abstract class AbstractIntentHandler implements RequestHandler {
         StringWriter writer = new StringWriter();
         t.merge( context, writer );
         /* show the World */
+        LOG.error("repromptName is" + writer.toString());
         return writer.toString(); 		
 	}
 	

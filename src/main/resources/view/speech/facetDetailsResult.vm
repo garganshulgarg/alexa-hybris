@@ -1,0 +1,5 @@
+#if( $facetsResult is null)
+	No filter are available
+#else
+  filters are available
+#end

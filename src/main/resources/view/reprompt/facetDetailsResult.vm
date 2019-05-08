@@ -1,0 +1,10 @@
+#if( $facetsResult is null)
+	No filter are available
+#else
+  You can choose the filters.
+  Please tell apply filter and name of the any filter for e.g.
+  apply filter red.
+  
+  if you want to choose different name than please tell find and product name
+  example find camera 
+#end

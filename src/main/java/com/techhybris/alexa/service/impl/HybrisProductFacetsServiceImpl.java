@@ -3,6 +3,7 @@ package com.techhybris.alexa.service.impl;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,21 +31,49 @@ public class HybrisProductFacetsServiceImpl implements HybrisProductFacetsServic
 
 	@Override
 	public void setFacetsIntoSession(ProductSearchResult result, HandlerInput input) {
+		LOG.error("Starting setFacetsIntoSession");
 		FacetsSummay summary = buildFacetsSummary(result, input);
-		input.getAttributesManager().getSessionAttributes().put(FACETS_SESSION_KEY,summary);
+		input.getAttributesManager().getSessionAttributes().put(FACETS_SESSION_KEY, summary);
+		LOG.error("Ending setFacetsIntoSession");
 	}
 
 	@Override
 	public FacetsSummay getFacetsIntoSession(HandlerInput input) {
-		Object summary = input.getAttributesManager().getSessionAttributes().get(FACETS_SESSION_KEY);
-		if(null != summary) {
-			return (FacetsSummay) summary;
+		FacetsSummay summary = new FacetsSummay();
+
+		if (input.getAttributesManager().getSessionAttributes().containsKey(FACETS_SESSION_KEY)) {
+			
+			LinkedHashMap summaryMap = (LinkedHashMap) input
+													   .getAttributesManager()
+													   .getSessionAttributes()
+													   .get(FACETS_SESSION_KEY);
+			if (null != summaryMap) {
+				if (summaryMap.containsKey("query")) {
+					summary.setQuery((String) summaryMap.get("query"));
+				}
+				if (summaryMap.containsKey("sort")) {
+					summary.setSort((String) summaryMap.get("sort"));
+				}
+				if (summaryMap.containsKey("facetsResult")) {
+					summary.setFacetsResult((Map) summaryMap.get("facetsResult"));
+				}
+				if (summaryMap.containsKey("selectedFacets")) {
+					summary.setSelectedFacets((Map) summaryMap.get("selectedFacets"));
+				}
+				if (summaryMap.containsKey("facetsMode")) {
+					summary.setFacetsMode((Map) summaryMap.get("facetsMode"));
+				}
+				if (summaryMap.containsKey("supportedSorts")) {
+					summary.setSupportedSorts((List) summaryMap.get("supportedSorts"));
+				}
+			}
 		}
-		return new FacetsSummay(); 
+		return summary;
 	}
 
 	@Override
 	public Map<String, String> buildFacetsQuery(HandlerInput input, Map<String, String> params) {
+		LOG.error("Starting buildFacetsQuery");
 		FacetsSummay summary = getFacetsIntoSession(input);
 		String query = params.get(QUERY);
 		Map<String, Object> facetValSelected = parseQuery(summary, query);
@@ -58,7 +87,9 @@ public class HybrisProductFacetsServiceImpl implements HybrisProductFacetsServic
 			queryBuilder.append(':');
 			queryBuilder.append(facetValSelected.get("sort"));
 		}
-		
+		if(null == facetValSelected.get("facet")) {
+			facetValSelected.put("facet", new HashSet<String>());
+		}
 		if(null != facetValSelected.get("facet")) {
 			for(String val : (Set<String>) facetValSelected.get("facet")) {
 				queryBuilder.append(':');
@@ -68,9 +99,11 @@ public class HybrisProductFacetsServiceImpl implements HybrisProductFacetsServic
 			}
 		}
 		params.put(QUERY,queryBuilder.toString());
+		LOG.error("Ending buildFacetsQuery");
 		return params;
 	}
 	private Map<String, Object> parseQuery(FacetsSummay summary, String queryText) {
+		LOG.error("Starting parseQuery");
 		StringBuilder queryBuilder = new StringBuilder(queryText);
 		Map<String, Object> facetValSelected = new HashMap<String, Object>();
 		Set<String> facetsVal = new HashSet<String>();
@@ -93,21 +126,23 @@ public class HybrisProductFacetsServiceImpl implements HybrisProductFacetsServic
 		if(StringUtils.isNotBlank(summary.getSort())) {
 			facetValSelected.put("sort",summary.getSort());
 		}
+		LOG.error("Ending parseQuery");
 		return facetValSelected;
 	}
 	private FacetsSummay buildFacetsSummary(ProductSearchResult result, HandlerInput input) {
+		LOG.error("Starting buildFacetsSummary");
 		FacetsSummay summary = getFacetsIntoSession(input);
 		populateFacetResult(summary, result);
+		LOG.error("Ending buildFacetsSummary");
 		return summary;
 	}
 	private void populateFacetResult(FacetsSummay summary, ProductSearchResult result) {
-		
+		LOG.error("Starting populateFacetResult");
 		List<Facet> facetsList =  result.getFacets();
-		if(CollectionUtils.isNullOrEmpty(facetsList)) {
+		if(null != facetsList) {
 			Map<String, String> facetsResult = new HashMap<>();
 			Map<String, Boolean> facetsMode = new HashMap<>();
 			Map<String, String> selectedFacets = new HashMap<>();
-
 			for(Facet facet : facetsList) {
 				facetsMode.put(facet.getName(), facet.getMultiSelect());
 				for(Value value : facet.getValues()) {
@@ -117,6 +152,12 @@ public class HybrisProductFacetsServiceImpl implements HybrisProductFacetsServic
 					}
 				}
 			}
+			LOG.error("Facets Mode" + facetsMode.size());
+			LOG.error("Facets Selected" + selectedFacets.size());
+			LOG.error("Facets Result" + facetsResult.size());
+			summary.setFacetsMode(facetsMode);
+			summary.setSelectedFacets(selectedFacets);
+			summary.setFacetsResult(facetsResult);
 		}
 		String query = result.getCurrentQuery().getQuery().getValue();
 		if(StringUtils.isNotBlank(query)) {
@@ -132,5 +173,6 @@ public class HybrisProductFacetsServiceImpl implements HybrisProductFacetsServic
 				}
 			}
 		}
+		LOG.error("Ending populateFacetResult");	
 	}
 }
