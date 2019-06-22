@@ -18,6 +18,7 @@ public class YesIntentHandler extends AbstractIntentHandler {
 	private Logger LOG = LoggerFactory.getLogger(LaunchRequestHandler.class);
 	private HelpIntentHandler helpHandler;
 	private CartDetailsRequestHandler cartDetailsRequestHandler;
+	private ProductSearchIntentHandler productSearchIntentHandler;
 	private ProductReferenceSearchIntentHandler productReferenceSearchHandler;
 	@Override
 	public Optional<Response> handle(HandlerInput input) {
@@ -31,6 +32,8 @@ public class YesIntentHandler extends AbstractIntentHandler {
 				return helpHandler.handle(input);
 			case "cartDetails":
 				return cartDetailsRequestHandler.handle(input);
+			case "continue_shopping":
+				return productSearchIntentHandler.handle(input);		
 			case "Product_Referance":
 				return productReferenceSearchHandler.handle(input);	
 			default:
@@ -59,6 +62,10 @@ public class YesIntentHandler extends AbstractIntentHandler {
 	@Required
 	public void setProductReferenceSearchHandler(ProductReferenceSearchIntentHandler productReferenceSearchHandler) {
 		this.productReferenceSearchHandler = productReferenceSearchHandler;
+	}
+	@Required
+	public void setProductSearchIntentHandler(ProductSearchIntentHandler productSearchIntentHandler) {
+		this.productSearchIntentHandler = productSearchIntentHandler;
 	}
 	
 	

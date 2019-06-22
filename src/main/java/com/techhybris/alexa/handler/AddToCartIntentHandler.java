@@ -69,6 +69,7 @@ private Logger LOG = LoggerFactory.getLogger(AddToCartIntentHandler.class);
 		
 		CartModificationData cmd=hybrisAddToCartConnectorService.addToCart(selectedProductCode,accessToken);
 		setSessionAttributes(input, "type", "cartDetails");
+		LOG.error("Setting product code {} in session.",selectedProductCode);
 		setSessionAttributes(input, "PRODUCT_CODE", selectedProductCode);
 		
 		if(null != selectedProductCode) {
