@@ -3,7 +3,7 @@
  	 #foreach( $product in $productSearchResult.products )
     	$product.name,
  	 #end
- 	 .You can add any of these products to basket. You can say like add first product, add second product to basket?
+ 	 .You can add any of these products to basket. You can make your choice by saying add first product or add second product to basket?
  #else
 	Sorry, we are unable to find any matching results ? Please try again
  #end
