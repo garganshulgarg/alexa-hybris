@@ -18,7 +18,7 @@ public class YesIntentHandler extends AbstractIntentHandler {
 	private Logger LOG = LoggerFactory.getLogger(LaunchRequestHandler.class);
 	private HelpIntentHandler helpHandler;
 	private CartDetailsRequestHandler cartDetailsRequestHandler;
-	private ProductSearchIntentHandler productSearchIntentHandler;
+	private ProductReferenceSearchIntentHandler productReferenceSearchHandler;
 	@Override
 	public Optional<Response> handle(HandlerInput input) {
 		String speechText = "";
@@ -31,8 +31,8 @@ public class YesIntentHandler extends AbstractIntentHandler {
 				return helpHandler.handle(input);
 			case "cartDetails":
 				return cartDetailsRequestHandler.handle(input);
-			case "Continue_Shopping":
-				return productSearchIntentHandler.handle(input);	
+			case "Product_Referance":
+				return productReferenceSearchHandler.handle(input);	
 			default:
 				speechText = "Sorry, I do not understand how to process that.";
 			}
@@ -57,8 +57,8 @@ public class YesIntentHandler extends AbstractIntentHandler {
 		this.cartDetailsRequestHandler = cartDetailsRequestHandler;
 	}
 	@Required
-	public void setProductSearchIntentHandler(ProductSearchIntentHandler productSearchIntentHandler) {
-		this.productSearchIntentHandler = productSearchIntentHandler;
+	public void setProductReferenceSearchHandler(ProductReferenceSearchIntentHandler productReferenceSearchHandler) {
+		this.productReferenceSearchHandler = productReferenceSearchHandler;
 	}
 	
 	

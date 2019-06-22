@@ -48,6 +48,14 @@
 		<property name="repromptName" value="productSearchResult" />
    		<property name="cardName" value="productSearchResult" />
 	</bean>
+	<bean id="productReferenceSearchHandler"
+		class="com.techhybris.alexa.handler.ProductReferenceSearchIntentHandler">
+		<property name="intentName" value="ProductReferenceSearchIntent" />
+		<property name="speachName" value="productReferenceSearchResult" />
+		<property name="repromptName" value="productReferenceSearchResult" />
+   		<property name="cardName" value="productReferenceSearchResult" />
+	</bean>
+
 	<bean id="addToCartHandler"
 		class="com.techhybris.alexa.handler.AddToCartIntentHandler">
 		<property name="intentName" value="AddToCartIntent" />
@@ -68,7 +76,7 @@
 		<property name="intentName" value="AMAZON.YesIntent" />
 		<property name="helpHandler" ref="helpHandler"/>
 		<property name="cartDetailsRequestHandler" ref="cartDetailsRequestHandler"/>
-		<property name="productSearchIntentHandler" ref="productSearchHandler"/>
+		<property name="productReferenceSearchHandler" ref="productReferenceSearchHandler"/>
 	</bean>
 	<bean id="noIntentHandler"
 		class="com.techhybris.alexa.handler.NoIntentHandler">
@@ -111,6 +119,7 @@
 				<ref bean="productSearchHandler" />
 				<ref bean="cartDetailsRequestHandler"/>
 				<ref bean="addToCartHandler"/>
+				<ref bean="productReferenceSearchHandler"/>
 			</list>
 		</property>
 	</bean>
@@ -121,6 +130,9 @@
 
 	<bean id="hybrisProductSearchService"
 		class="com.techhybris.alexa.integration.impl.DefaultHybrisProductSearchService"/>
+		
+	<bean id="hybrisProductReferenceService"
+		class="com.techhybris.alexa.integration.impl.DefaultHybrisProductReferenceService"/>
 	
 	<bean id="hybrisAddToCartConnectorService"
 		class="com.techhybris.alexa.integration.impl.DefaultHybrisAddToCartConnectorService"/>

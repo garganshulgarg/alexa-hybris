@@ -13,22 +13,24 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 
 import com.techhybris.alexa.data.HybrisRequest;
-import com.techhybris.alexa.integration.HybrisProductSearchService;
+import com.techhybris.alexa.integration.HybrisProductReferenceService;
 import com.techhybris.alexa.integration.client.HybrisConnectivityClient;
-import com.techhybris.alexa.product.data.ProductSearchResult;
+import com.techhybris.alexa.product.references.data.ProductReferenceSearchResult;
 
-public class DefaultHybrisProductSearchService implements HybrisProductSearchService {
+public class DefaultHybrisProductReferenceService implements HybrisProductReferenceService{
 
 	private static final String FIELDS = "fields";
 
 	private static final String PAGE_SIZE = "pageSize";
 
-	private static final String QUERY = "query";
+	private static final String REFERENCE_TYPE = "referenceType";
+	
+	private static final String PRODUCT_CODE = "ProductCode";
 
 	private Logger LOG = LoggerFactory.getLogger(DefaultHybrisProductSearchService.class);
 
 	@Resource(name = "hybrisConnectivityClient")
-	private HybrisConnectivityClient<ProductSearchResult> hybrisConnectivityClient;
+	private HybrisConnectivityClient<ProductReferenceSearchResult> hybrisConnectivityClient;
 
 	@Value("${hybris.base.url}")
 	private String hybrisBaseUrl;
@@ -37,19 +39,21 @@ public class DefaultHybrisProductSearchService implements HybrisProductSearchSer
 	private String hybrisBaseSiteUid;
 
 	@Override
-	public ProductSearchResult findProducts(String accessToken, Map<String, String> params) {
+	public ProductReferenceSearchResult findProductReferences(String accessToken, Map<String, String> params) {
 		if (StringUtils.isEmpty(accessToken)) {
 			return null;
 		}
 		try {
-			URI uri = new URIBuilder(hybrisBaseUrl + hybrisBaseSiteUid + "/products/search")
-										.addParameter(QUERY, null != params && null!=params.get(QUERY) ? params.get(QUERY) :StringUtils.EMPTY)
+			String prod_code = null != params && null!=params.get(PRODUCT_CODE) ? params.get(PRODUCT_CODE) :StringUtils.EMPTY;
+			
+			URI uri = new URIBuilder(hybrisBaseUrl + hybrisBaseSiteUid + "/products/"+prod_code+"/references")
 										.addParameter(PAGE_SIZE, "4")
-										.addParameter(FIELDS, "FULL")
+										.addParameter(REFERENCE_TYPE, "ACCESSORIES")
+										.addParameter(FIELDS, "DEFAULT")
 										.build();
 			HybrisRequest request = new HybrisRequest(accessToken);
 			request.setUrl(uri.toString());
-			return hybrisConnectivityClient.invokeRequest(request, ProductSearchResult.class);
+			return hybrisConnectivityClient.invokeRequest(request, ProductReferenceSearchResult.class);
 
 		} catch (URISyntaxException e) {
 			LOG.error(e.getMessage());
