@@ -61,8 +61,10 @@ private Logger LOG = LoggerFactory.getLogger(AddToCartIntentHandler.class);
 		if(null!=cartListData && CollectionUtils.isEmpty(cartListData.getCarts())) {
 			LOG.error("Total Carts: "+cartListData.getCarts().size());
 			Cart cart=hybrisCreateOrRestoreCartConnectorService.createOrRestoreCart(accessToken);
+			if(null != cart) {
 			LOG.error("Cart code: "+cart.getCode());
 			LOG.error("Cart guid: "+cart.getGuid());
+			}
 		}
 		
 		CartModificationData cmd=hybrisAddToCartConnectorService.addToCart(selectedProductCode,accessToken);
