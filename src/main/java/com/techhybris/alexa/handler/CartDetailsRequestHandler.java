@@ -32,7 +32,9 @@ public class CartDetailsRequestHandler extends AbstractIntentHandler {
 		LOG.error("Access Token: {}", accessToken);
 		CartListData cartListData = hybrisConnectorService.getCurrentCustomerCart(accessToken);
 		// Setting the attribute property for data persistence.
-		setSessionAttributes(input, "type", "Product_Referance");
+		//setSessionAttributes(input, "type", "Product_Referance");
+		setSessionAttributes(input, "type", "continue_shopping");
+		
 		if(null != cartListData && CollectionUtils.isNotEmpty(cartListData.getCarts())) {
 		LOG.error("Cart Code: "+cartListData.getCarts().get(0).getCode());
 		}

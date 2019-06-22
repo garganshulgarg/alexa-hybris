@@ -7,11 +7,11 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.amazon.ask.dispatcher.request.handler.HandlerInput;
-import com.amazonaws.util.StringUtils;
 import com.google.common.collect.Lists;
 import com.techhybris.alexa.integration.HybrisProductReferenceService;
 import com.techhybris.alexa.integration.HybrisProductSearchService;
@@ -34,21 +34,16 @@ public class ProductReferenceSearchIntentHandler extends AbstractIntentHandler {
 		LOG.error("Access Token: {}", accessToken);
 		
 		Map<String, Object> sessionAttributes = input.getAttributesManager().getSessionAttributes();
-		String product_code = "";
+		String product_code = StringUtils.EMPTY;
 		Object typeObject = sessionAttributes.get("PRODUCT_CODE");
+		LOG.error("Getting product code {} from session.",typeObject);
 		if(null != typeObject && typeObject instanceof String) {
 			product_code = (String) typeObject;
 		}
 
-		Map<String, String> slotValues = new HashMap<>();
-		if(StringUtils.isNullOrEmpty(product_code)) {
-		slotValues.put("ProductCode", product_code);
-		} else {
-			slotValues.put("ProductCode", "");
-		}
 		
 		
-		ProductReferenceSearchResult productSearchResult = hybrisProductReferenceService.findProductReferences(accessToken, getSlots(input));
+		ProductReferenceSearchResult productSearchResult = hybrisProductReferenceService.findProductReferences(accessToken, product_code);
 		
 		if(null != productSearchResult) {
 			List<String> productCodeList = Lists.newArrayList();

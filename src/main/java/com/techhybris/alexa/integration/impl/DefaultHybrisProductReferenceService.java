@@ -39,14 +39,13 @@ public class DefaultHybrisProductReferenceService implements HybrisProductRefere
 	private String hybrisBaseSiteUid;
 
 	@Override
-	public ProductReferenceSearchResult findProductReferences(String accessToken, Map<String, String> params) {
+	public ProductReferenceSearchResult findProductReferences(String accessToken, String productCode) {
 		if (StringUtils.isEmpty(accessToken)) {
 			return null;
 		}
 		try {
-			String prod_code = null != params && null!=params.get(PRODUCT_CODE) ? params.get(PRODUCT_CODE) :StringUtils.EMPTY;
 			
-			URI uri = new URIBuilder(hybrisBaseUrl + hybrisBaseSiteUid + "/products/"+prod_code+"/references")
+			URI uri = new URIBuilder(hybrisBaseUrl + hybrisBaseSiteUid + "/products/"+productCode+"/references")
 										.addParameter(PAGE_SIZE, "4")
 										.addParameter(REFERENCE_TYPE, "ACCESSORIES")
 										.addParameter(FIELDS, "DEFAULT")

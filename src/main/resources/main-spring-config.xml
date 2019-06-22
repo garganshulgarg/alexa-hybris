@@ -76,6 +76,7 @@
 		<property name="intentName" value="AMAZON.YesIntent" />
 		<property name="helpHandler" ref="helpHandler"/>
 		<property name="cartDetailsRequestHandler" ref="cartDetailsRequestHandler"/>
+		<property name="productSearchIntentHandler" ref="productSearchHandler"/>
 		<property name="productReferenceSearchHandler" ref="productReferenceSearchHandler"/>
 	</bean>
 	<bean id="noIntentHandler"

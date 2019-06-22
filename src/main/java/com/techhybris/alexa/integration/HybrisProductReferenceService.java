@@ -7,5 +7,5 @@ import com.techhybris.alexa.product.references.data.ProductReferenceSearchResult
 
 
 public interface HybrisProductReferenceService {
-	public ProductReferenceSearchResult findProductReferences(String accessToken, Map<String, String> params);
+	public ProductReferenceSearchResult findProductReferences(String accessToken, String productCode);
 }
